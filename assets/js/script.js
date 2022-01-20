@@ -14,6 +14,9 @@ var buttonB = document.querySelector("#btnB");
 var buttonC = document.querySelector("#btnC");
 var buttonD = document.querySelector("#btnD");
 
+var firstPlace = document.querySelector("#first-place");
+var secondPlace = document.querySelector("#second-place");
+var thirdPlace = document.querySelector("#third-place");
 
 var numCorrect = document.querySelector("#numCorrect");
 var numWrong = document.querySelector("#numWrong")
@@ -166,15 +169,32 @@ function resetScore() {
 
 // End Game
 function endGame() {
+
     setHighScore()
 }
 
 // saves over last score needs to append
 function setHighScore() {
+    var retrievedScores = JSON.parse(localStorage.getItem('highScoresList'));
     var finalScore = numYes;
-    var init = prompt("you got a high score! enter your initials:");
+    // var highScoresList = { "init": init, "score": finalScore };
 
-    var highScoresList = { "init": init, "score": finalScore };
+    var highScoresList = [
+        { "init": " ", "score": " " },
+        { "init": " ", "score": " " },
+        { "init": " ", "score": " " }
+    ];
+
+    if (finalScore > retrievedScores[2].score) {
+        var init = prompt("you got a high score! enter your initials:");
+
+    }
+
+
+
+
+
+
 
     localStorage.setItem('highScoresList', JSON.stringify(highScoresList));
 
@@ -185,14 +205,15 @@ function setHighScore() {
 function dispHighScore() {
     var retrievedScores = JSON.parse(localStorage.getItem('highScoresList'));
 
+    console.log(retrievedScores.init + " " + retrievedScores.score);
 
+    var scoreOne = (retrievedScores[0].init + " " + retrievedScores[0].score);
+    var scoreTwo = (retrievedScores[1].init + " " + retrievedScores[1].score);
+    var scoreThree = (retrievedScores[2].init + " " + retrievedScores[2].score);
 
-    const listItem = document.createElement("li");
-    const text = document.createTextNode(retrievedScores.init + " " + retrievedScores.score);
-    listItem.appendChild(text);
-
-    const list = document.querySelector(".highscores");
-    list.appendChild(listItem);
+    firstPlace.innerHTML = scoreOne;
+    secondPlace.innerHTML = scoreTwo;
+    thirdPlace.innerHTML = scoreThree;
 
 }
 
